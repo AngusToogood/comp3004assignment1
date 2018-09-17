@@ -80,4 +80,7 @@ public class Deck {
 	public void shuffle() {
 		Collections.shuffle(card, rng);
 	}
+	public boolean equals(Deck other) {
+		return card.equals(other.card);
+	}
 }

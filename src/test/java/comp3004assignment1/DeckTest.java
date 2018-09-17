@@ -26,4 +26,12 @@ public class DeckTest extends TestCase{
 		assertNotEquals("Deck does not shuffle", unshuffled, shuffled);
 		assertEquals("Shuffled deck wrong size", 52, shuffled.size());
 	}
+	public void testFileInput() {
+		Deck deck = fileToDeck("fileReadText.txt");
+		assertEquals("Wrong number of cards", 4, deck.size());
+		assertEquals("Wrong first card", "C3", deck.draw());
+		assertEquals("Wrong second card", "HK", deck.draw());
+		assertEquals("Wrong third card", "S2", deck.draw());
+		assertEquals("Wrong fourth card", "D7", deck.draw());
+	}
 }
