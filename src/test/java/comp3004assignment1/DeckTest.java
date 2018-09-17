@@ -10,11 +10,11 @@ public class DeckTest extends TestCase{
 		Deck deck = new Deck();
 		assertEquals("New Deck not full", 52, deck.size());
 		assertEquals("First card of unshuffled deck not ace of spades",
-				new Card("SA"), deck.draw());
+				"SA", deck.draw());
 		assertEquals("Drawing does not decrease size of deck",
 				51, deck.size());
 		assertEquals("Second card of unshuffled deck not 2 of spades",
-				new Card("S2"), deck.draw());
+				"S2", deck.draw());
 		assertEquals("Drawing does not decrease size of deck",
 				50, deck.size());
 		//writing a test case for every card in the deck would take too long.
