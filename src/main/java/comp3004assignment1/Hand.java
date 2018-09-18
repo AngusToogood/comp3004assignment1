@@ -33,9 +33,17 @@ abstract public class Hand {
 			}
 		}
 		if(aces > 0) {
-		//TODO: handle aces
+			if(s <= 10) {
+				s += 11;
+				s += aces - 1;
+			}else {
+				s += aces;
+			}
 		}
 		return s;
+	}
+	public void clear() {
+		card.clear();
 	}
 }
 
