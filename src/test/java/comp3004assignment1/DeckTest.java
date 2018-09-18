@@ -51,7 +51,7 @@ public class DeckTest extends TestCase{
 		assertEquals("Dealer did not win", false, BlackJack.play(deck, playerCommands));
 	}
 	public void testFileCommandInput() {
-		Deck deck = BlackJack.fileToDeck("src/test/resources/fileCommandTest.txt");
+		Deck deck = BlackJack.fileToDeck("src/test/resources/commandTest1.txt");
 		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/commandTest1.txt");
 		assertNotNull(deck);
 		assertNotNull(playerCommands);
