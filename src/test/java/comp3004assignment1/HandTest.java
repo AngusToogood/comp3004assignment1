@@ -15,7 +15,7 @@ public class HandTest extends TestCase {
 		d.add(deck.draw());
 		assertEquals(2, d.size());
 		d.turn = false;
-		assertEquals("Dealer: S2 **", d.toString());
+		assertEquals("Dealer: S2 ** ", d.toString());
 		d.turn = true;
 		assertEquals("Dealer: S2 D7 (9)", d.toString());
 	}
