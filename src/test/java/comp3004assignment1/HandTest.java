@@ -18,5 +18,28 @@ public class HandTest extends TestCase {
 		assertEquals("Dealer: S2 ** ", d.toString());
 		d.turn = true;
 		assertEquals("Dealer: S2 D7 (9)", d.toString());
+		p.clear();
+		assertEquals(0, p.size());
+		d.clear();
+		assertEquals(0, d.size());
+	}
+	public void testAceScore() {
+		PlayerHand p = new PlayerHand();
+		p.add("SA");
+		assertEquals(11, p.score());
+		p.add("CA");
+		assertEquals(12, p.score());
+		p.clear();
+		
+		p.add("DA");
+		p.add("HK");
+		assertEquals(21, p.score());
+		p.clear();
+		
+		p.add("D9");
+		p.add("D3");
+		p.add("HA");
+		assertEquals(13, p.score());
+		
 	}
 }
