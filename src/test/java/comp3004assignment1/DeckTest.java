@@ -4,6 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -41,5 +42,19 @@ public class DeckTest extends TestCase{
 		assertEquals("Blank file accepted", null, BlackJack.fileToDeck("src/test/resources/badInput2.txt"));
 		assertEquals("Duplicate cards accepted", null, BlackJack.fileToDeck("src/test/resources/badInput3.txt"));
 		assertEquals("Invalid cards accepted", null, BlackJack.fileToDeck("src/test/resources/badInput4.txt"));
+	}
+	public void testBlackjackTie() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/blackjackTie.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/blackjackTie.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Dealer did not win", false, BlackJack.play(deck, playerCommands));
+	}
+	public void testFileCommandInput() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/fileCommandTest.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/commandTest1.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Player did not win", true, BlackJack.play(deck, playerCommands));
 	}
 }
