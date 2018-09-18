@@ -71,6 +71,11 @@ public class Deck {
 		card.add("SA");
 	}
 	
+	public Deck(List<String> other) {
+		card = new ArrayList<String>(other);
+		rng = new Random();
+	}
+	
 	public String draw() {
 		return card.remove(card.size()-1);
 	}

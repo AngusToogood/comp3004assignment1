@@ -3,6 +3,8 @@ package comp3004assignment1;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.io.File;
+
 import junit.framework.TestCase;
 
 public class DeckTest extends TestCase{
@@ -27,7 +29,7 @@ public class DeckTest extends TestCase{
 		assertEquals("Shuffled deck wrong size", 52, shuffled.size());
 	}
 	public void testFileInput() {
-		Deck deck = fileToDeck("fileReadText.txt");
+		Deck deck = BlackJack.fileToDeck("src/test/resources/fileReadTest.txt");
 		assertEquals("Wrong number of cards", 4, deck.size());
 		assertEquals("Wrong first card", "C3", deck.draw());
 		assertEquals("Wrong second card", "HK", deck.draw());
