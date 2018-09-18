@@ -36,4 +36,11 @@ public class DeckTest extends TestCase{
 		assertEquals("Wrong third card", "S2", deck.draw());
 		assertEquals("Wrong fourth card", "D7", deck.draw());
 	}
+	public void testIncorrectFileInput() {
+		assertEquals("Incorrect format accepted", null, BlackJack.fileToDeck("src/test/resources/badInput1.txt"));
+		assertEquals("Blank file accepted", null, BlackJack.fileToDeck("src/test/resources/badInput2.txt"));
+		assertEquals("Duplicate cards accepted", null, BlackJack.fileToDeck("src/test/resources/badInput3.txt"));
+		assertEquals("Invalid cards accepted", null, BlackJack.fileToDeck("src/test/resources/badInput4.txt"));
+
+	}
 }
