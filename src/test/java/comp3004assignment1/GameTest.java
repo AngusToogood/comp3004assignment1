@@ -53,6 +53,20 @@ public class GameTest extends TestCase{
 		assertNotNull(deck);
 		assertNotNull(playerCommands);
 		assertEquals("Player did not win", true, BlackJack.play(deck, playerCommands));
-		
+	}
+	public void testPlayerSplit1() {
+		//example file 4
+		Deck deck = BlackJack.fileToDeck("src/test/resources/playerSplit1.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/playerSplit1.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Player did not win", true, BlackJack.play(deck, playerCommands));
+	}
+	public void testPlayerSplit2() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/playerSplit2.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/playerSplit2.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Player did not lose", true, BlackJack.play(deck, playerCommands));
 	}
 }
