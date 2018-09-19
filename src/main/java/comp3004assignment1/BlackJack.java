@@ -105,7 +105,7 @@ public class BlackJack {
 	public static char playerCommandInput() {
 		char c = 0;
 		Scanner keyboard = new Scanner(System.in);
-		while((c != 'H' && c != 'S')) {		
+		while((c != 'H') && (c != 'S')) {		
 			System.out.print("Hit (H) or Stand (S): ");
 			c = keyboard.next().charAt(0);
 		}
@@ -161,8 +161,8 @@ public class BlackJack {
 				break;
 			}
 			if(player.score() == 21) {
-				System.out.println("Blackjack! Player wins.");
-				return true;
+				dealer.turn = true; 
+				System.out.println("Player stands.");
 			}
 			if(player.score() > 21) {
 				System.out.println("Player goes bust. Dealer wins.");
@@ -178,10 +178,6 @@ public class BlackJack {
 			System.out.println("Dealer hits.");
 			System.out.println(dealer);
 		}
-		if(dealer.score() == 21) {
-			System.out.println("Blackjack! Dealer wins.");
-			return false;
-		}
 		if(dealer.score() > 21) {
 			System.out.println("Dealer goes bust. Player wins.");
 			return true;
@@ -195,8 +191,32 @@ public class BlackJack {
 		return false;
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		char c = 0;
+		Deck deck = null;
+		Scanner keyboard = new Scanner(System.in);
+		while((c != 'c' && c != 'f')) {	
+			System.out.println("Console (c) or File (f) input : ");
+			c = keyboard.next().charAt(0);
+		}
+		if (c == 'c') {
+			deck = new Deck();
+			deck.shuffle();
+			keyboard.reset();
+			play(deck, null);
+		}
+		else {
+			String filename;
+			List<Character> command = null;
+			while((deck == null) || (command == null)) {
+				System.out.println("Enter file path : ");
+				filename = keyboard.next();
+				deck = fileToDeck(filename);
+				command = fileToCommand(filename);
+			}
+			keyboard.close();
+			System.out.println();
+			play(deck, command);
+		}
 	}
 
 }
