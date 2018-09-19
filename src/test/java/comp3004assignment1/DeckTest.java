@@ -43,18 +43,4 @@ public class DeckTest extends TestCase{
 		assertEquals("Duplicate cards accepted", null, BlackJack.fileToDeck("src/test/resources/badInput3.txt"));
 		assertEquals("Invalid cards accepted", null, BlackJack.fileToDeck("src/test/resources/badInput4.txt"));
 	}
-	public void testBlackjackTie() {
-		Deck deck = BlackJack.fileToDeck("src/test/resources/blackjackTie.txt");
-		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/blackjackTie.txt");
-		assertNotNull(deck);
-		assertNotNull(playerCommands);
-		assertEquals("Dealer did not win", false, BlackJack.play(deck, playerCommands));
-	}
-	public void testFileCommandInput() {
-		Deck deck = BlackJack.fileToDeck("src/test/resources/commandTest1.txt");
-		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/commandTest1.txt");
-		assertNotNull(deck);
-		assertNotNull(playerCommands);
-		assertEquals("Player did not win", true, BlackJack.play(deck, playerCommands));
-	}
 }
