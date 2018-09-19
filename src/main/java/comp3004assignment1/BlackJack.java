@@ -114,6 +114,7 @@ public class BlackJack {
 	}
 	//returns true for player win, false for dealer win
 	public static boolean play(Deck deck, List<Character> command) {
+		System.out.println("------------------------");
 		boolean consolePlay = false;
 		if(command == null) consolePlay = true;
 		
@@ -172,7 +173,7 @@ public class BlackJack {
 		System.out.println();
 		System.out.println("Dealer's Turn");
 		System.out.println(dealer);
-		while(dealer.score() < 17) {
+		while((dealer.score() < 17) || dealer.isSoft17()) {
 			dealer.add(deck.draw());
 			System.out.println("Dealer hits.");
 			System.out.println(dealer);
