@@ -29,8 +29,8 @@ abstract public class Hand {
 		int s = 0;
 		int aces = 0;
 		char c;
-		for(int i = 0; i < (!split?card.size():splitCard.size()); i++) {
-			c = (!split?card.get(i).charAt(1):splitCard.get(i).charAt(1));
+		for(int i = 0; i < (split?splitCard:card).size(); i++) {
+			c = (split?splitCard:card).get(i).charAt(1);
 			if((c >= '2') && (c <= '9')) {
 				s += Character.getNumericValue(c);
 			}else if((c == '1') || (c == 'J') || (c == 'Q') || (c == 'K')) {
@@ -50,7 +50,16 @@ abstract public class Hand {
 		}
 		return s;
 	}
-	public int score() {return score(false);} //old interface for non-split
+	public int score() {
+		if(splitHand == 2) {
+			int score1 = score(false);
+			int score2 = score(true);
+			if(score1 > 21) return score2;
+			if(score2 > 21) return score1;
+			return Math.max(score1, score2);
+		}
+		return score(false);
+	} 
 	public void clear() {
 		card.clear();
 	}

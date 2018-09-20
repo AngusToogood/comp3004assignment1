@@ -94,22 +94,13 @@ public class BlackJack {
 		List<String> card = new ArrayList<String>(Arrays.asList(fileLine.split("\\s+")));
 		List<Character> command = new ArrayList<Character>();
 		
-		boolean split = false;
-		for(int i=4; i<card.size(); i+=2) {
-			if(card.get(i).length() > 1) {
-				if(split) { 
-					i++;
-					split = false;
-				}
-				else
-					break; //reached dealer's turn
-			}
+		for(int i=4; i<card.size(); i++) {
+			if(card.get(i).length() > 1) continue;
 			if(card.get(i).charAt(0) == 'H') command.add('H'); //hit
 			else if(card.get(i).charAt(0) == 'S') command.add('S'); //stand
 			else if((i == 4) && (card.get(i).charAt(0) == 'D') && //split
 					(card.get(0).charAt(1) == card.get(1).charAt(1))) {
 				command.add('D');
-				split = true;
 			}
 			else return null; //invalid command
 		}
@@ -171,6 +162,7 @@ public class BlackJack {
 		//player turn
 		System.out.println();
 		System.out.println("Player's Turn");
+		System.out.println(player);
 		if(player.canSplit()) {
 			if(consolePlay && (playerSplitInput() == 'D')) {
 				player.split();
@@ -185,16 +177,15 @@ public class BlackJack {
 		if(playerSplitting) {
 			System.out.println("Player Splits");
 			player.add(deck.draw());
-			System.out.println(player);
 		}
 		while(!dealer.turn) {
+			System.out.println(player);
 			if(consolePlay) pc = playerCommandInput();
 			else pc = command.remove(0);
 			switch(pc) {
 			case 'H': 
 				player.add(deck.draw()); 
 				System.out.println("Player Hits");
-				System.out.println(player); 
 				break;
 			default: 
 				System.out.println("Player stands.");
@@ -207,7 +198,6 @@ public class BlackJack {
 				else {
 					player.splitHand = 1;
 					player.add(deck.draw());
-					System.out.println(player);
 				}
 				break;
 			}
@@ -231,15 +221,18 @@ public class BlackJack {
 			if(player.score(player.splitHand == 1) > 21) {
 				if(playerSplitting) {
 					if(player.splitHand == 0) {
-						player.splitHand = 1;
+						System.out.println(player);
 						System.out.println("Player's first hand goes bust");
+						player.splitHand = 1;
 						player.add(deck.draw());
 					}
 					else if (player.score() > 21){
+						System.out.println(player);
 						System.out.println("Player's second hand also goes bust. Dealer wins.");
 						return false;
 					}
 					else {
+						System.out.println(player);
 						System.out.println("Player's second hand goes bust.");
 						dealer.turn = true;
 					}
@@ -249,29 +242,57 @@ public class BlackJack {
 				}
 			}
 		}
+		if(playerSplitting) player.splitHand = 2;
 		//dealer turn
 		System.out.println();
 		System.out.println("Dealer's Turn");
 		System.out.println(dealer);
-		while((dealer.score() < 17) || dealer.isSoft17()) {
-			dealer.add(deck.draw());
-			System.out.println("Dealer hits.");
-			System.out.println(dealer);
+		boolean dealerSplitting = dealer.canSplit();
+		if(dealerSplitting) {
+			dealer.split();
+			System.out.println("Dealer splits.");
 		}
-		if(dealer.score() > 21) {
-			System.out.println("Dealer goes bust. Player wins.");
-			return true;
-		}
-		System.out.println("Dealer stands.");
-		if((!playerSplitting && (dealer.score() < player.score())) ||
-				(playerSplitting && ((dealer.score() < player.score()) && player.score() <= 21) || 
-						(dealer.score() < player.score(true)) && player.score(true) <= 21)) {
+		do {
+			if(dealerSplitting) {
+				dealer.add(deck.draw());
+				System.out.println(dealer);
+			}
+			while((dealer.score(dealer.splitHand == 1) < 17) || dealer.isSoft17(dealer.splitHand == 1)) {
+				dealer.add(deck.draw());
+				System.out.println("Dealer hits.");
+				System.out.println(dealer);
+			}
+			if(dealer.score(dealer.splitHand == 1) > 21) {
+				if(dealerSplitting) {
+					if(dealer.splitHand == 0) {
+						System.out.println("Dealer's first hand goes bust.");
+					}else if(dealer.score() > 21) {
+						System.out.println("Dealer's second hand also goes bust. Player wins");
+						return true;
+					}else {
+						System.out.println("Dealer's second hand goes bust");
+					}
+				}
+				else {
+					System.out.println("Dealer goes bust. Player wins.");
+					return true;
+				}
+			} else
+				System.out.println("Dealer stands.");
+			if(dealerSplitting) dealer.splitHand++;
+		} while(dealerSplitting && (dealer.splitHand < 2));
+		
+		System.out.println();
+		System.out.println(player);
+		System.out.println(dealer);
+		if(dealer.score() < player.score()) {
 			System.out.println("Player Wins.");
 			return true;
 		}
 		System.out.println("Dealer Wins.");
 		return false;
 	}
+	
 	public static void main(String[] args) {
 		char c = 0;
 		Deck deck = null;
