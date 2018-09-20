@@ -4,11 +4,23 @@ public class PlayerHand extends Hand {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Player: ");
-		for(int i=0; i<card.size(); i++) {
-			sb.append(card.get(i) + " ");
+		StringBuilder sb = new StringBuilder();
+		if(splitCard == null) sb.append("Player: ");
+		else if (splitHand == 0) sb.append("Player Hand 1: ");
+		if((splitHand == 0) || (splitHand == 2)) {
+			for(int i=0; i<card.size(); i++) {
+				sb.append(card.get(i) + " ");
+			}
+			sb.append("(" + this.score(false) + ")");
 		}
-		sb.append("(" + this.score() + ")");
+		if(splitHand == 2) sb.append('\n');
+		if((splitHand == 1) || (splitHand == 2)) {
+			sb.append("Player Hand 2: ");
+			for(int i=0; i<splitCard.size(); i++) {
+				sb.append(splitCard.get(i) + " ");
+			}
+			sb.append("(" + this.score(true) + ")");
+		}
 		return sb.toString();
 	}
 
