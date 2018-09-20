@@ -69,5 +69,32 @@ public class GameTest extends TestCase{
 		assertNotNull(playerCommands);
 		assertEquals("Player did not lose", false, BlackJack.play(deck, playerCommands));
 	}
-	
+	public void testDealerSplit1() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/dealerSplit1.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/dealerSplit1.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Dealer did not win", false, BlackJack.play(deck, playerCommands));
+	}
+	public void testDealerSplit2() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/dealerSplit2.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/dealerSplit2.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Dealer did not lose", true, BlackJack.play(deck, playerCommands));
+	}
+	public void testBothSplit1() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/bothSplit1.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/dealerSplit1.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Dealer did not win", false, BlackJack.play(deck, playerCommands));
+	}
+	public void testBothSplit2() {
+		Deck deck = BlackJack.fileToDeck("src/test/resources/bothSplit2.txt");
+		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/dealerSplit2.txt");
+		assertNotNull(deck);
+		assertNotNull(playerCommands);
+		assertEquals("Player did not win", true, BlackJack.play(deck, playerCommands));
+	}
 }
