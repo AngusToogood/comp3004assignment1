@@ -67,6 +67,7 @@ public class GameTest extends TestCase{
 		List<Character> playerCommands = BlackJack.fileToCommand("src/test/resources/playerSplit2.txt");
 		assertNotNull(deck);
 		assertNotNull(playerCommands);
-		assertEquals("Player did not lose", true, BlackJack.play(deck, playerCommands));
+		assertEquals("Player did not lose", false, BlackJack.play(deck, playerCommands));
 	}
+	
 }

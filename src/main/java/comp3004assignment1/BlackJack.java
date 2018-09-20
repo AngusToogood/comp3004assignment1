@@ -264,7 +264,8 @@ public class BlackJack {
 		}
 		System.out.println("Dealer stands.");
 		if((!playerSplitting && (dealer.score() < player.score())) ||
-				(playerSplitting && (dealer.score() < player.score()) || (dealer.score() < player.score(true)))) {
+				(playerSplitting && ((dealer.score() < player.score()) && player.score() <= 21) || 
+						(dealer.score() < player.score(true)) && player.score(true) <= 21)) {
 			System.out.println("Player Wins.");
 			return true;
 		}
